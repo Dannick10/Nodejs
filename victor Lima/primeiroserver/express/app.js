@@ -19,7 +19,7 @@ app.get('/ola/:nome/:idade', (req, res) => {
 
 function aumentaridade(idade) {
     let num = parseInt(idade)
-    return num +1
+    return num +10
 }
 
 app.listen(8081, () => {
