@@ -5,7 +5,7 @@ const debug = require('debug')('nodestr:server');
 const express = require('express');
 
 const app = express();
-const port = 3000;
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 const server = http.createServer(app);
@@ -22,3 +22,19 @@ app.use('/', route);
 
 server.listen(port)
 console.log("APi rodando porta")
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+  
+    if (isNaN(port)) {
+      // named pipe
+      return val;
+    }
+  
+    if (port >= 0) {
+      // port number
+      return port;
+    }
+  
+    return false;
+  }
