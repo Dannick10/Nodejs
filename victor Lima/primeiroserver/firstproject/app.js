@@ -16,8 +16,9 @@ const sequelize = new Sequelize('teste', 'root', '', {
     dialect: 'mysql'
 })
 
-app.get('/', (req,res) => {
-    res.send('funciona')
+//rotas
+app.get('/cad', (req,res) => {
+    res.render('formulario')
 })
 
 
