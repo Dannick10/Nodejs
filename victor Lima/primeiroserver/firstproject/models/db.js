@@ -6,6 +6,10 @@ const sequelize = new Sequelize("postapp", "root", "", {
   dialect: "mysql",
 });
 
+
+sequelize.authenticate()
+.then(() => console.log('conectou ao banco'))
+.catch((error) => console.log('error: ' + error))
 module.exports = {
   Sequelize,
   sequelize,

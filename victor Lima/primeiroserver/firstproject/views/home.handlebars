@@ -1,1 +1,12 @@
 <h1>Lista de Produtos</h1>
+
+{{#each posts}}
+    <h1>{{titulo}}</h1>
+    <p>{{conteudo}} </p>
+{{/each}}
+
+{{#if posts}}
+    <p>Dados estão chegando!</p>
+{{else}}
+    <p>Nenhum dado encontrado.</p>
+{{/if}}
