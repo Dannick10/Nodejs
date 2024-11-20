@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
     res.render("home", { posts: plainPosts });
   });
 });
+
 app.get("/cad", (req, res) => {
   res.render("formulario");
 });
@@ -36,6 +37,15 @@ app.post("/add", (req, res) => {
       res.send("error: " + error);
     });
 });
+
+app.get('/deletar/:id', (req,res) => {
+    Post.destroy({where: {'id': req.params.id}})
+    .then(() => {
+        res.send('postagem excluida')
+    }).catch((error) => {
+        res.send('error ao deletar ' + error)
+    })
+})
 
 app.listen(8081, () => {
   console.log("servidor rodando");

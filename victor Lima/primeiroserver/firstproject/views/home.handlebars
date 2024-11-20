@@ -3,6 +3,9 @@
 {{#each posts}}
     <h1>{{titulo}}</h1>
     <p>{{conteudo}} </p>
+    <a href="/deletar/{{id}}"></a><button>Deletar</button></a>
+    <a href="/deletar/{{dataValues.id}}"><button>Deletar</button></a>
+    <hr>
 {{/each}}
 
 {{#if posts}}
