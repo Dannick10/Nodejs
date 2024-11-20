@@ -1,9 +1,8 @@
 const express = require("express")
 const app = express()
-const Sequelize = require("sequelize")
 const { engine } = require("express-handlebars")
 const bodyParser = require('body-parser')
-
+const Post = require('./models/Posts')
 
 // config 
 // template Engine 
@@ -13,19 +12,24 @@ app.set('views', './views');
 //body parser
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-// conexão com o banco de dados Mysql
-const sequelize = new Sequelize('teste', 'root', '', {
-    host: "localhost",
-    dialect: 'mysql'
-})
 
 //rotas
+app.get("/", (req,res) => {
+    res.render('home')
+})
 app.get('/cad', (req,res) => {
     res.render('formulario')
 })
 
 app.post('/add', (req,res) => {
-    res.send(`texto: ${req.body.titulo}  Conteudo: ${req.body.conteudo}`)
+    Post.create({
+        titulo: req.body.titulo,
+        conteudo: req.body.conteudo
+    }).then(() => {
+        res.redirect('/')
+    }).catch((error) => {
+        res.send("error: " + error)
+    })
 })
 
 
