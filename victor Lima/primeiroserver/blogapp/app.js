@@ -5,10 +5,29 @@ const app = express();
 const admin = require("./routes/admin");
 const path = require("path");
 const { mongo } = require("mongoose");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 //config
 
+//sessão
+app.use(session({
+  secret: "cursodeNode",
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(flash());
+
+///middleware
+
+app.use((req,res,next) => {
+  res.locals.sucess_msg = req.flash('sucess_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next()
+});
+-
 //boddy parser
 app.use(express.json())    // para ler json
 app.use(express.urlencoded({ extended: true}))
@@ -26,6 +45,7 @@ app.set("views", "./views");
  } )
 //public 
 app.use(express.static(path.join(__dirname,"public")))
+
 //rotas
 app.use('/admin', admin)
 
