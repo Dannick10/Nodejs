@@ -1,3 +1,10 @@
+{{#each errors}}
+    <div class="alert alert-danger">{{text}}</div>
+    {{else}}
+{{/each}}
+
+
+
 <h3> Nova categoria</h3>
 <div class="card p-4 rounded">
 <form action="/admin/categorias/nova" method="POST">
