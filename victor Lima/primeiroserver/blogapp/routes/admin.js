@@ -2,17 +2,22 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 require("../models/Categoria");
-const Categorias = mongoose.model("categorias");
+const Categorias = mongoose.model("categorias")
 router.get("/", (req, res) => {
   res.render("admin/index");
 });
 
-router.get("/posts", (req, res) => {
-  res.send("posts");
-});
-
 router.get("/categorias", (req, res) => {
-  res.render("admin/categorias");
+      Categorias.find()
+      .lean()
+      .sort({date: "desc"})
+      .then((categoria) => { 
+        res.render("admin/categorias", {categorias: categoria})
+      })
+      .catch((err) => {
+        req.flash("error_msg", err)
+        res.redirect("/admin")
+      })
 });
 
 router.get("/categorias/add", (req, res) => {
@@ -38,13 +43,14 @@ router.post("/categorias/nova", (req, res) => {
     res.render("admin/addcategorias", { errors: errors });
   } else {
     const novaCategoria = {
-      nome: req.body.name,
+      name: req.body.name,
       slug: req.body.slug,
     };
 
     new Categorias(novaCategoria)
       .save()
       .then(() => {
+    
         req.flash('sucess_msg', 'Categoria criada com sucesso');
         res.redirect('/admin/categorias');
       })

@@ -41,7 +41,7 @@ app.set("views", "./views");
  .then(() => {
   console.log('conectado ao mongodb')
  }).catch((error) => {
-  console.lodg('erro ao conectar' + error)
+  console.log('erro ao conectar' + error)
  } )
 //public 
 app.use(express.static(path.join(__dirname,"public")))
