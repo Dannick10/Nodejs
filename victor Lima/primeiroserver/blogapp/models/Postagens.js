@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const Schema = require.Schema
+const Schema = mongoose.Schema
 
 const Postagens = new Schema({
     titulo: {
@@ -16,10 +16,10 @@ const Postagens = new Schema({
     },
     conteudo: {
         type: String,
-        required: True 
+        required: true 
     },
     categoria: {
-        type: Schema.Types.ObjectID,
+        type: Schema.Types.ObjectId,
         ref: "categorias",
         required: true
     },

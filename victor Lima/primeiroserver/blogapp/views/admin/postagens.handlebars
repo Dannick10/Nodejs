@@ -3,3 +3,11 @@
 <a href="/admin/postagens/add"><br>
 <button class="btn btn-sucess">Nova postagens: </button>
 </a>
+
+{{#each postagens}}
+    <h2>{{titulo}}</h2>
+    <p>{{slug}}</p>
+    <p>{{descricao}}</p>
+{{else}}
+<h4>Nnehuma postagem registrada</h4>
+{{/each}}
