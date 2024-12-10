@@ -127,12 +127,11 @@ router.post("/categorias/nova", (req, res) => {
 });
 
 router.get("/postagens", (req, res) => {
-  Postagens.find().lean()
-  .then((postagem) => {
+  Postagens.find().lean().populate("categoria").sort({data: 'desc'}).then((postagem) => {
     res.render("admin/postagens", {postagens: postagem})
   }).catch((err) => {
-    req.flash("error_msg", "houve um erro ao listar categorias")
-    res.render("admin")
+    req.flash("error_msg", "houve um erro ao listar as postagens")
+    res.redirect("/admin")
   })
 })
 

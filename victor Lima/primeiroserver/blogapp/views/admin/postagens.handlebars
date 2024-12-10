@@ -5,9 +5,14 @@
 </a>
 
 {{#each postagens}}
+<div class="card mt-4">
+    <div class="card-body">
     <h2>{{titulo}}</h2>
-    <p>{{slug}}</p>
-    <p>{{descricao}}</p>
+    <p> descrição: {{descricao}}</p>
+    <small>{{data}}</small>
+    <p>{{categoria.name}}</p>
+    </div>
+</div>
 {{else}}
 <h4>Nnehuma postagem registrada</h4>
 {{/each}}
