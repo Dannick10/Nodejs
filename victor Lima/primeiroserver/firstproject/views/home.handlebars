@@ -5,6 +5,10 @@
     <p>{{conteudo}} </p>
     <a href="/deletar/{{id}}"></a><button>Deletar</button></a>
     <a href="/deletar/{{dataValues.id}}"><button>Deletar</button></a>
+    <form action="" method="post">
+        <input type="hidden" name="id" value="{{id}}">
+        <button type="submit" class="btn btn-danger">Deletar</button>
+    </form>
     <hr>
 {{/each}}
 
