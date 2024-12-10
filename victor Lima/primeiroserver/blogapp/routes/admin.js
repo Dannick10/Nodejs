@@ -124,4 +124,18 @@ router.post("/categorias/nova", (req, res) => {
   }
 });
 
+router.get("/postagens", (req, res) => {
+  res.render("admin/postagens")
+})
+
+router.get("/postagens/add", (req,res) => {
+  Categorias.find().lean().then((categorias) => {
+    console.log(categorias)
+    res.render("admin/addpostagens", {categoria: categorias})
+  }) .catch((err) => {
+    req.flash("error_msg", "Erro ao add categoria");
+    res.redirect("admin")
+  })
+})
+
 module.exports = router;
