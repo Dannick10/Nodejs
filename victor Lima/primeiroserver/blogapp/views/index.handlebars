@@ -16,8 +16,12 @@
     <div class="card-body">
     <h2>{{titulo}}</h2>
     <p> descrição: {{descricao}}</p>
+    <a href="/postagem/{{slug}}">
+    <button class="btn btn-sucess">Leia mais</button>
+    </a>
+    <hr>
     <small>{{data}}</small>
-    <p>{{categoria.name}}</p>
+    <p>Categoria: {{categoria.name}}</p>
     </div>
 
 {{else}}

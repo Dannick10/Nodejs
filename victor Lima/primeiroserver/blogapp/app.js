@@ -68,6 +68,25 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/postagem/:slug", (req, res) => {
+
+  console.log(req.params.slug)
+
+   Postagem.find({slug: req.params.slug}).lean().then((postagem) => {
+        if(postagem) {
+          res.render("postagem/index", {postagem})
+        } else {
+          req.flash("error_msg", "Esta postagem não existe"); 
+          req.redirect("/")
+        }
+   }).catch((err) => {
+      req.flash("error_msg", "Houve um erro interno");
+      res.redirect("/")
+   }
+  
+  )
+  
+})
 app.use("/admin", admin);
 
 //outros
