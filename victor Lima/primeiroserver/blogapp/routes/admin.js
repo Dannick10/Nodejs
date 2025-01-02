@@ -189,4 +189,16 @@ router.post("/postagens/nova", (req,res) => {
   })
 
 
+router.post("/postagens/deletar", (req,res) => {
+    Postagens.deleteOne({_id: req.body.id}).then((postagem) => {
+      req.flash("sucess_msg", "postagem deletada com sucesso")
+      res.redirect("/admin/postagens")
+    }).catch((err) => {
+      req.flash("error_msg", "houve um erro ao deletar a postagem")
+      res.redirect("/admin/postagens")
+    })
+
+  })
+
+
 module.exports = router;

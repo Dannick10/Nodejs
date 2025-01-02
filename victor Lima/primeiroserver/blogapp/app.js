@@ -10,6 +10,9 @@ const session = require("express-session");
 const flash = require("connect-flash");
 require("./models/Postagens");
 const Postagem = mongoose.model("postagens");
+require("./models/Categoria")
+const Categoria = mongoose.model("categorias")
+
 //config
 
 //sessão
@@ -82,11 +85,24 @@ app.get("/postagem/:slug", (req, res) => {
    }).catch((err) => {
       req.flash("error_msg", "Houve um erro interno");
       res.redirect("/")
-   }
-  
-  )
-  
+   })
 })
+
+app.get("/categorias/index", (req, res) => {
+    Categoria.find().lean().populate().then(
+      (categorias) => {
+      res.render("categorias/index", {categorias: categorias})
+      }).catch((err) => {
+        req.flash("error_msg", "Houve um erro interno ao listar as categorias")
+        res.redirect("/")
+      })
+})
+
+
+app.get("/404", (req, res) => {
+  res.send("Erro 404");
+})
+
 app.use("/admin", admin);
 
 //outros

@@ -11,6 +11,11 @@
     <p> descrição: {{descricao}}</p>
     <small>{{data}}</small>
     <p>{{categoria.name}}</p>
+    <form action="/admin/postagens/deletar/" method="post">
+     <input type="hidden" name="id" value={{_id}}>
+    <button class="btn">Deletar postagem</button>
+    </form>
+    </a>
     </div>
 </div>
 {{else}}
