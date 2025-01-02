@@ -12,6 +12,7 @@ require("./models/Postagens");
 const Postagem = mongoose.model("postagens");
 require("./models/Categoria")
 const Categoria = mongoose.model("categorias")
+const usuarios = require("./routes/usuario")
 
 //config
 
@@ -104,7 +105,7 @@ app.get("/404", (req, res) => {
 })
 
 app.use("/admin", admin);
-
+app.use("/usuarios", usuarios);
 //outros
 const PORT = 8081;
 app.listen(PORT, () => {
