@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const {eadmin} = require("../helpers/eadmin");
 require("../models/Categoria");
 const Categorias = mongoose.model("categorias");
 require("../models/Postagens")
@@ -9,7 +10,8 @@ router.get("/", (req, res) => {
   res.render("admin/index");
 });
 
-router.get("/categorias", (req, res) => {
+
+router.get("/categorias", eadmin, (req, res) => {
   Categorias.find()
     .lean()
     .sort({ date: "desc" })
@@ -22,7 +24,7 @@ router.get("/categorias", (req, res) => {
     });
 });
 
-router.get("/categorias/edit/:id", (req, res) => {
+router.get("/categorias/edit/:id", eadmin, (req, res) => {
   Categorias.findOne({ _id: req.params.id })
     .lean()
     .then((categoria) => {
@@ -34,7 +36,7 @@ router.get("/categorias/edit/:id", (req, res) => {
     });
 });
 
-router.post("/categorias/edit", (req, res) => {
+router.post("/categorias/edit", eadmin, (req, res) => {
   Categorias.findOne({ _id: req.body.id })
     .then((categoria) => {
       if (!categoria) {
@@ -66,7 +68,7 @@ router.post("/categorias/edit", (req, res) => {
     });
 });
 
-router.post("/categorias/deletar", (req, res) => {
+router.post("/categorias/deletar", eadmin, (req, res) => {
     Categorias.deleteOne({_id: req.body.id})
     .then(() => {
       req.flash("sucess_msg", "categoria deletada com sucesso")
@@ -78,7 +80,7 @@ router.post("/categorias/deletar", (req, res) => {
     })
 })
 
-router.get("/categorias/add", (req, res) => {
+router.get("/categorias/add", eadmin, (req, res) => {
   res.render("admin/addcategorias");
 });
 
@@ -106,7 +108,7 @@ router.post("/categorias/nova", (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render("admin/addcategorias", { errors: errors });
+    res.render("admin/addcategorias", eadmin, { errors: errors });
   } else {
     const novaCategoria = {
       name: req.body.name,
@@ -126,7 +128,7 @@ router.post("/categorias/nova", (req, res) => {
   }
 });
 
-router.get("/postagens", (req, res) => {
+router.get("/postagens", eadmin, (req, res) => {
   Postagens.find().lean().populate("categoria").sort({data: 'desc'}).then((postagem) => {
     res.render("admin/postagens", {postagens: postagem})
   }).catch((err) => {
@@ -145,7 +147,7 @@ router.get("/postagens/add", (req,res) => {
   })
 })
 
-router.post("/postagens/nova", (req,res) => {
+router.post("/postagens/nova", eadmin, (req,res) => {
    let erros = []
 
    if(req.body.categoria == "0") {
@@ -189,7 +191,7 @@ router.post("/postagens/nova", (req,res) => {
   })
 
 
-router.post("/postagens/deletar", (req,res) => {
+router.post("/postagens/deletar", eadmin, (req,res) => {
     Postagens.deleteOne({_id: req.body.id}).then((postagem) => {
       req.flash("sucess_msg", "postagem deletada com sucesso")
       res.redirect("/admin/postagens")

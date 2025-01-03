@@ -4,7 +4,11 @@
   <hr class="my-4">
   <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
   <p class="lead">
+    {{#if user}}
+    <p>Bem vindo de volta</p>
+    {{else}}
     <a class="btn btn-primary btn-lg" href="#" role="button">Crie uma conta</a>
+    {{/if}}
   </p>
 </div>
 <hr>
