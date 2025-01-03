@@ -13,7 +13,8 @@ const Postagem = mongoose.model("postagens");
 require("./models/Categoria")
 const Categoria = mongoose.model("categorias")
 const usuarios = require("./routes/usuario")
-
+const passport = require("passport")
+require("./config/auth")(passport)
 //config
 
 //sessão
@@ -25,6 +26,8 @@ app.use(
   })
 );
 
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash());
 
 ///middleware
@@ -32,6 +35,7 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.sucess_msg = req.flash("sucess_msg");
   res.locals.error_msg = req.flash("error_msg");
+  res.locals.erros = req.flash("error")
   next();
 });
 -(
@@ -46,13 +50,13 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 //mongoose
 mongoose
-  .connect("mongodb://localhost/blogapp")
-  .then(() => {
-    console.log("conectado ao mongodb");
-  })
-  .catch((error) => {
-    console.log("erro ao conectar" + error);
-  });
+.connect("mongodb://localhost/blogapp")
+.then(() => {
+  console.log("conectado ao mongodb");
+})
+.catch((error) => {
+  console.log("erro ao conectar" + error);
+});
 //public
 app.use(express.static(path.join(__dirname, "public")));
 
